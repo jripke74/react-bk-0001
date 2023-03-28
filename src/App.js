@@ -3,6 +3,7 @@ import Header from './components/Header';
 import GoalList from './components/GoalList';
 import EmailInput from './components/EmailInput';
 import Expenses from './components/Expenses/Expenses';
+import NewExpense from './components/NewExpense/NewExpense';
 
 function App() {
   const expenses = [
@@ -32,6 +33,7 @@ function App() {
       <Header />
       <EmailInput />
       <GoalList />
+      <NewExpense />
       <Expenses items={expenses} />
     </>
   );
