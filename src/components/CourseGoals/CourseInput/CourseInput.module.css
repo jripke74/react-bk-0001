@@ -31,3 +31,7 @@
 .form-control.invalid label {
   color: #ff0000;
 }
+
+@media (min-width) {
+  
+}
