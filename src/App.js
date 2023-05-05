@@ -8,6 +8,7 @@ import Expenses from './components/Expenses/Expenses';
 import NewExpense from './components/NewExpense/NewExpense';
 import CourseGoalList from './components/CourseGoals/CourseGoalList/CourseGoalList';
 import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
+import AddUser from './components/Users/AddUseer';
 
 const DUMMY_EXPENSES = [
   {
@@ -75,7 +76,9 @@ function App() {
         <CourseInput onAddGoal={addGoalHandler} />
       </section>
       <section id="goals">{content}</section>
+
       <Header />
+      <AddUser />
       <EmailInput />
       <GoalList />
       <NewExpense onAddExpense={addExpenseHandler} />
