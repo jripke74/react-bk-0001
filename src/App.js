@@ -8,7 +8,7 @@ import Expenses from './components/Expenses/Expenses';
 import NewExpense from './components/NewExpense/NewExpense';
 import CourseGoalList from './components/CourseGoals/CourseGoalList/CourseGoalList';
 import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
-import AddUser from './components/Users/AddUseer';
+import AddUser from './components/Users/AddUser';
 
 const DUMMY_EXPENSES = [
   {
