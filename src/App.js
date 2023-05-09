@@ -9,6 +9,7 @@ import NewExpense from './components/NewExpense/NewExpense';
 import CourseGoalList from './components/CourseGoals/CourseGoalList/CourseGoalList';
 import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
 import AddUser from './components/Users/AddUser';
+import UsersList from './components/Users/UsersList';
 
 const DUMMY_EXPENSES = [
   {
@@ -79,6 +80,7 @@ function App() {
 
       <Header />
       <AddUser />
+      <UsersList users={[]} />
       <EmailInput />
       <GoalList />
       <NewExpense onAddExpense={addExpenseHandler} />
