@@ -34,11 +34,21 @@ const DUMMY_EXPENSES = [
 ];
 
 function App() {
+  const [usersList, setUsersList] = useState([]);
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
   const [courseGoals, setCourseGoals] = useState([
     { text: 'Do all exercises!', id: 'g1' },
     { text: 'Finish the course!', id: 'g2' },
   ]);
+
+  const addUserHandler = (uName, uAge) => {
+    setUsersList((prevUsersList) => {
+      return [
+        ...prevUsersList,
+        { name: uName, age: uAge, id: Math.random().toString() },
+      ];
+    });
+  };
 
   const addGoalHandler = (enteredText) => {
     setCourseGoals((prevGoals) => {
@@ -79,8 +89,8 @@ function App() {
       <section id="goals">{content}</section>
 
       <Header />
-      <AddUser />
-      <UsersList users={[]} />
+      <AddUser onAddUser={addUserHandler} />
+      <UsersList users={usersList} />
       <EmailInput />
       <GoalList />
       <NewExpense onAddExpense={addExpenseHandler} />
