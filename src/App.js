@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import './App.css';
+import MainHeader from './components/MainHeader/MainHeader';
+import Login from './components/Login/Login';
+import Home from './components/Home/Home';
 import Header from './components/Header';
 import GoalList from './components/GoalList';
 import EmailInput from './components/EmailInput';
@@ -34,12 +37,31 @@ const DUMMY_EXPENSES = [
 ];
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
+
+    if (storedUserLoggedInInformation === '1') {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   const [usersList, setUsersList] = useState([]);
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
   const [courseGoals, setCourseGoals] = useState([
     { text: 'Do all exercises!', id: 'g1' },
     { text: 'Finish the course!', id: 'g2' },
   ]);
+
+  const loginHandler = (email, password) => {
+    localStorage.setItem('isLoggedIn', '1');
+    setIsLoggedIn(true);
+  };
+
+  const logoutHandler = (email, password) => {
+    setIsLoggedIn(false);
+  };
 
   const addUserHandler = (uName, uAge) => {
     setUsersList((prevUsersList) => {
@@ -83,6 +105,9 @@ function App() {
 
   return (
     <>
+      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+        {!isLoggedIn && <Login onLogin={loginHandler} />}
+        {isLoggedIn && <Home onLogout={logoutHandler} />}
       <section id="goal-form">
         <CourseInput onAddGoal={addGoalHandler} />
       </section>
