@@ -13,6 +13,7 @@ import CourseGoalList from './components/CourseGoals/CourseGoalList/CourseGoalLi
 import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
 import AddUser from './components/Users/AddUser';
 import UsersList from './components/Users/UsersList';
+import AuthContect from './components/store/auth-context';
 
 const DUMMY_EXPENSES = [
   {
@@ -104,10 +105,10 @@ function App() {
   };
 
   return (
-    <>
-      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
-        {!isLoggedIn && <Login onLogin={loginHandler} />}
-        {isLoggedIn && <Home onLogout={logoutHandler} />}
+    <AuthContect.Provider value={{ isLoggedIn: isLoggedIn }}>
+      <MainHeader onLogout={logoutHandler} />
+      {!isLoggedIn && <Login onLogin={loginHandler} />}
+      {isLoggedIn && <Home onLogout={logoutHandler} />}
       <section id="goal-form">
         <CourseInput onAddGoal={addGoalHandler} />
       </section>
@@ -120,7 +121,7 @@ function App() {
       <GoalList />
       <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses items={expenses} />
-    </>
+    </AuthContect.Provider>
   );
 }
 
