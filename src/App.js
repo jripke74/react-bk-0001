@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 
 import './App.css';
 import MainHeader from './components/MainHeader/MainHeader';
@@ -13,7 +13,7 @@ import CourseGoalList from './components/CourseGoals/CourseGoalList/CourseGoalLi
 import CourseInput from './components/CourseGoals/CourseInput/CourseInput';
 import AddUser from './components/Users/AddUser';
 import UsersList from './components/Users/UsersList';
-import AuthContect from './components/store/auth-context';
+import AuthContect from './store/auth-context';
 
 const DUMMY_EXPENSES = [
   {
@@ -38,15 +38,7 @@ const DUMMY_EXPENSES = [
 ];
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
-
-    if (storedUserLoggedInInformation === '1') {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  const ctx = useContext(AuthContect);
 
   const [usersList, setUsersList] = useState([]);
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
@@ -54,15 +46,6 @@ function App() {
     { text: 'Do all exercises!', id: 'g1' },
     { text: 'Finish the course!', id: 'g2' },
   ]);
-
-  const loginHandler = (email, password) => {
-    localStorage.setItem('isLoggedIn', '1');
-    setIsLoggedIn(true);
-  };
-
-  const logoutHandler = (email, password) => {
-    setIsLoggedIn(false);
-  };
 
   const addUserHandler = (uName, uAge) => {
     setUsersList((prevUsersList) => {
@@ -105,12 +88,10 @@ function App() {
   };
 
   return (
-    <AuthContect.Provider
-      value={{ isLoggedIn: isLoggedIn, onLogout: logoutHandler }}
-    >
+    <>
       <MainHeader />
-      {!isLoggedIn && <Login onLogin={loginHandler} />}
-      {isLoggedIn && <Home onLogout={logoutHandler} />}
+      {!ctx.isLoggedIn && <Login />}
+      {ctx.ExpensesisLoggedIn && <Home />}
       <section id="goal-form">
         <CourseInput onAddGoal={addGoalHandler} />
       </section>
@@ -123,7 +104,7 @@ function App() {
       <GoalList />
       <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses items={expenses} />
-    </AuthContect.Provider>
+    </>
   );
 }
 
