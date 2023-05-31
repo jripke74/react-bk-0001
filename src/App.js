@@ -105,8 +105,10 @@ function App() {
   };
 
   return (
-    <AuthContect.Provider value={{ isLoggedIn: isLoggedIn }}>
-      <MainHeader onLogout={logoutHandler} />
+    <AuthContect.Provider
+      value={{ isLoggedIn: isLoggedIn, onLogout: logoutHandler }}
+    >
+      <MainHeader />
       {!isLoggedIn && <Login onLogin={loginHandler} />}
       {isLoggedIn && <Home onLogout={logoutHandler} />}
       <section id="goal-form">
