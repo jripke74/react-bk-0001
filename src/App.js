@@ -15,6 +15,7 @@ import CourseInput from "./components/CourseGoals/CourseInput/CourseInput";
 import AddUser from "./components/Users/AddUser";
 import UsersList from "./components/Users/UsersList";
 import AuthContect from "./store/auth-context";
+import Concepts from "./components/Concepts/Concepts";
 
 import componentsImage from "./assets/images/components.png";
 import stateImage from "./assets/images/state.png";
@@ -132,21 +133,21 @@ function App() {
       <Expenses items={expenses} />
       <Header2 />
       <ul id="concepts">
-        <li className="concept">
-          <img src={concepts[0].image} alt={concepts[0].title} />
-          <h2>{concepts[0].title}</h2>
-          <p>{concepts[0].description}</p>
-        </li>
-        <li className="concept">
-          <img src={concepts[1].image} alt={concepts[1].title} />
-          <h2>{concepts[1].title}</h2>
-          <p>{concepts[1].description}</p>
-        </li>
-        <li className="concept">
-          <img src={concepts[2].image} alt={concepts[2].title} />
-          <h2>{concepts[2].title}</h2>
-          <p>{concepts[2].description}</p>
-        </li>
+        <Concepts
+          image={concepts[0].image}
+          title={concepts[0].title}
+          description={concepts[0].description}
+        />
+        <Concepts
+          image={concepts[1].image}
+          title={concepts[1].title}
+          description={concepts[1].description}
+        />
+        <Concepts
+          image={concepts[2].image}
+          title={concepts[2].title}
+          description={concepts[2].description}
+        />
       </ul>
     </>
   );
