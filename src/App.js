@@ -5,7 +5,7 @@ import MainHeader from "./components/MainHeader/MainHeader";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import Header from "./components/Header";
-import Header2 from "./components/Header/Header";
+import Header2 from "./components/Header/Header2";
 import GoalList from "./components/GoalList";
 import EmailInput from "./components/EmailInput";
 import Expenses from "./components/Expenses/Expenses";
@@ -20,6 +20,8 @@ import Concepts from "./components/Concepts/Concepts";
 import componentsImage from "./assets/images/components.png";
 import stateImage from "./assets/images/state.png";
 import eventsImage from "./assets/images/events.png";
+import UserInput from "./components/UserInput/UserInput";
+import ResultsTable from "./components/ResultsTable/ResultsTable";
 
 const concepts = [
   {
@@ -73,6 +75,11 @@ function App() {
     { text: "Do all exercises!", id: "g1" },
     { text: "Finish the course!", id: "g2" },
   ]);
+  const [userInput, setUserInput] = useState(null);
+
+  const calculateHandler = (userInput) => {
+    setUserInput(userInput);
+  };
 
   const addUserHandler = (uName, uAge) => {
     setUsersList((prevUsersList) => {
@@ -114,6 +121,26 @@ function App() {
     });
   };
 
+  const yearlyData = [];
+
+  if (userInput) {
+    let currentSavings = userInput["current-savings"];
+    const yearlyContribution = userInput["yearly-contribution"];
+    const expectedReturn = userInput["expected-return"] / 100;
+    const duration = userInput["duration"];
+
+    for (let i = 0; i < duration; i++) {
+      const yearlyInterest = currentSavings * expectedReturn;
+      currentSavings += yearlyInterest + yearlyContribution;
+      yearlyData.push({
+        year: i + 1,
+        yearlyInterest: yearlyInterest,
+        savingsEndOfYear: currentSavings,
+        yearlyContribution: yearlyContribution,
+      });
+    }
+  }
+
   return (
     <>
       <MainHeader />
@@ -149,6 +176,21 @@ function App() {
           description={concepts[2].description}
         />
       </ul>
+      <div>
+        <Header2 />
+
+        <UserInput onCalculate={calculateHandler} />
+
+        {!userInput && (
+          <p style={{ textAlign: "center" }}>No investment calculated yet.</p>
+        )}
+        {userInput && (
+          <ResultsTable
+            data={yearlyData}
+            initialInvestment={userInput["current-savings"]}
+          />
+        )}
+      </div>
     </>
   );
 }
